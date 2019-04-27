@@ -11,7 +11,7 @@ class News extends CI_Controller {
                 $this->load->helper('url_helper');
         }
 
-       public function index()
+public function index()
 {
         $this->config->set_item('title','Seattle Sports News');
            
@@ -65,8 +65,16 @@ public function create()
         }
         else
         {
-            $this->news_model->set_news();
-            $this->load->view('news/success', $data);
+//            $this->news_model->set_news();
+//            $this->load->view('news/success', $data);
+            $slug = $this->news_model->set_news();
+            if($slug !==false){
+                feedback('Data entered successfully!','info');
+                redirect('news/view/' . $slug);
+            }else{
+                feedback('Data NOT entered!','error');
+                redirect('news/create');
+            }
     }
 }
 }

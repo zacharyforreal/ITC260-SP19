@@ -7,6 +7,7 @@ public function __construct()
                 $this->load->database();
         }
 
+    
 public function get_news($slug = FALSE)
 {
         if ($slug === FALSE)
@@ -19,6 +20,7 @@ public function get_news($slug = FALSE)
         return $query->row_array();
 }
 
+    
     public function set_news()
 {
         $this->load->helper('url');
@@ -31,7 +33,13 @@ public function get_news($slug = FALSE)
             'text' => $this->input->post('text')
         );
 
-        return $this->db->insert('SP19_news', $data);
+        //return $this->db->insert('SP19_news', $data);
+        if($this->db->insert('SP19_news', $data))
+        {//return slug
+            return $slug;
+        }else{//return flase
+            return false;
+        }
     }
 
 }
